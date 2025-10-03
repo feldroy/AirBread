@@ -1,6 +1,63 @@
-def main():
-    print("Hello from airbread!")
+import air
+from os import getenv
+from mixedbread import AsyncMixedbread
+from mistletoe import markdown
+
+app = air.Air()
+
+mxbai = AsyncMixedbread(api_key=getenv('MIXEDBREAD_APIKEY'))
 
 
-if __name__ == "__main__":
-    main()
+@app.page
+def index():
+    title = 'AirBread'
+    return air.layouts.mvpcss(
+        air.Title(title),
+        air.H1(title),
+        air.P('Mixedbread AI search of Air documentation and code.'),
+        air.Form(
+            air.Input(
+                id="query",
+                name="q",
+                placeholder="Ask question here",
+                autofocus=True,
+                size="20"
+            ),
+            air.Button(
+                'Go!',
+
+            ),            
+            hx_get="/search",
+            hx_target='#result',
+            hx_swap="none",                
+        ),
+        air.Div(
+            air.Article(air.Pre(air.Code("Response will go here")), id="result"),
+        ),        
+    )
+
+@app.page
+async def search(q: str):
+    res = await mxbai.stores.search(
+            query=q,
+            store_identifiers=["Air Documentation"],
+            top_k=5,
+        )
+
+
+    # for chunk in res.data:
+    #     print(
+    #         # f"Score: {chunk.score:.4f}, File: {chunk.filename}, Chunk: {chunk.text or 'Non-text content'}..."
+    #         f"Score: {chunk.score:.4f}, File: {chunk.filename}"            
+    #     )
+    return air.Div(
+        *[air.Article(
+            # air.H3(f"{chunk.score:.4f}: {chunk.filename}"),
+            # air.Div(f'{chunk.text or 'Non-text content'}')
+            air.H3(air.A(f"{chunk.score:.4f}: {chunk.filename}")),
+            air.Raw(markdown(f'{chunk.text or 'Non-text content'}')),
+            air.Hr()
+        ) for chunk in res.data],
+        id='result',
+        hx_swap_oob="true"
+    )
