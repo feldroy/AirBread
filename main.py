@@ -11,26 +11,21 @@ mxbai = AsyncMixedbread(api_key=getenv('MIXEDBREAD_APIKEY'))
 @app.page
 def index():
     title = 'AirBread'
-    return air.layouts.mvpcss(
+    return air.layouts.picocss(
         air.Title(title),
         air.H1(title),
         air.P('Mixedbread AI search of Air documentation and code.'),
         air.Form(
-            air.Input(
-                id="query",
-                name="q",
-                placeholder="Ask question here",
-                autofocus=True,
-                size="20"
+            air.Fieldset(
+                air.Input(type="search", name="q", placeholder="Search"),
+                air.Input(type="submit", value="Go!"),
+                role="group",
             ),
-            air.Button(
-                'Go!',
-
-            ),            
             hx_get="/search",
             hx_target='#result',
-            hx_swap="none",                
+            hx_swap="none",             
         ),
+
         air.Div(
             air.Article(air.Pre(air.Code("Response will go here")), id="result"),
         ),        
@@ -43,7 +38,6 @@ async def search(q: str):
             store_identifiers=["Air Documentation"],
             top_k=5,
         )
-
 
     # for chunk in res.data:
     #     print(
