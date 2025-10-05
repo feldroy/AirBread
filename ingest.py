@@ -16,7 +16,7 @@ def delete_current():
     )
     for record in results.data:
         print(f'[red bold]Deleting {record.filename}[/red bold]')
-        res = mxbai.stores.files.delete(
+        mxbai.stores.files.delete(
             store_identifier=STORE_IDENTIFIER,
             file_id=record.id,
         )        
@@ -32,7 +32,7 @@ def ingest_latest(path: Path):
         baselink = baselink.replace('.md', '')
         link = f'https://feldroy.github.io/air/{baselink}'
         print(f'{link=}')
-        vector_store_file = mxbai.stores.files.upload(
+        mxbai.stores.files.upload(
             store_identifier=STORE_IDENTIFIER,
             file=fpath,
             metadata={
@@ -40,12 +40,11 @@ def ingest_latest(path: Path):
             }
         )
 
-        # print(f'{vector_store_file=}')
-        count += 1
-        # if count > 5: break
 
 
 def main(path: Path):
+    # TODO: Replace deleting of current with checking if there's been changes 
+    #   and then doing a more surgical replace
     delete_current()
     ingest_latest(path)
     print('Done')
