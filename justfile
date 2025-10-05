@@ -9,5 +9,10 @@ run:
 
 
 # Ingest files
-run:
-    uv run --env-file ../.env.air scripts/ingest.py
+ingest path:
+    uv run --env-file ../.env.air ingest.py {{path}}
+
+
+# Search
+search query:
+    uv run --env-file ../.env.air script.py {{query}}
