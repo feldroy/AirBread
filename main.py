@@ -11,7 +11,7 @@ mxbai = AsyncMixedbread(api_key=getenv('MIXEDBREAD_APIKEY'))
 @app.page
 def index():
     title = 'AirBread'
-    return air.layouts.mvpcss(
+    return air.layouts.picocss(
         air.Title(title),
         air.H1(title),
         air.P('Mixedbread AI search of Air documentation and code.'),
