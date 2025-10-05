@@ -38,17 +38,9 @@ async def search(q: str):
             store_identifiers=["Air-Documentation"],
             top_k=5,
         )
-
-    for chunk in res.data:
-        print(
-            # f"Score: {chunk.score:.4f}, File: {chunk.filename}, Chunk: {chunk.text or 'Non-text content'}..."
-            f"Score: {chunk.score:.4f}, File: {chunk.filename}"    
-        )
-        print(            f'Metadata: {chunk.metadata}'        )
     return air.Div(
         *[air.Article(
-
-            air.H3(air.A(f"{chunk.score:.4f}: {chunk.filename}", href=chunk.metadata['link'])),
+            air.H3(air.A(chunk.metadata['link'].replace('https://', ''), href=chunk.metadata['link'])),
             air.Raw(markdown(f'{chunk.text or 'Non-text content'}')),
             air.Hr()
         ) for chunk in res.data],
