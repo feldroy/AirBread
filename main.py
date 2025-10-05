@@ -2,16 +2,36 @@ import air
 from os import getenv
 from mixedbread import AsyncMixedbread
 from mistletoe import markdown
+from pathlib import Path
+from typing import Any
 
 app = air.Air()
 
 mxbai = AsyncMixedbread(api_key=getenv('MIXEDBREAD_APIKEY'))
 
 
+def layout(*children,  **kwargs):
+    body_tags = air.layouts.filter_body_tags(children)
+    head_tags = air.layouts.filter_head_tags(children)
+
+    return air.Html(
+        air.Head(
+            air.Style(Path('bonkers.css').read_text()),
+            air.Script(
+                src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js",
+                integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm",
+                crossorigin="anonymous",
+            ),
+            *head_tags,
+        ),
+        air.Body(air.Main(*body_tags, class_="bonkers")),
+    )
+
+
 @app.page
 def index(q: str | None = None):
     title = 'AirBread'
-    return air.layouts.picocss(
+    return layout(
         air.Title(title),
         air.Script("""function updateQinURL() {
             let url = new URL(window.location);

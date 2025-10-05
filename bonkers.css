@@ -1,0 +1,382 @@
+/* Bonkers CSS Framework - Semantic HTML with style */
+  
+  :root {
+    /* Light mode colors - Airy palette */
+    --bg-primary: #f8fbff;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f0f7ff;
+    --text-primary: #2d3748;
+    --text-secondary: #5a6c7d;
+    --text-muted: #93a5b8;
+    --accent-primary: #60a5fa;
+    --accent-secondary: #a78bfa;
+    --accent-gradient: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+    --border-color: #e0ecf8;
+    --shadow-sm: 0 2px 12px rgba(96, 165, 250, 0.08);
+    --shadow-md: 0 4px 20px rgba(96, 165, 250, 0.12);
+    --shadow-lg: 0 8px 36px rgba(96, 165, 250, 0.16);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-primary: #0b1120;
+      --bg-secondary: #131b2e;
+      --bg-tertiary: #1a2540;
+      --text-primary: #e8f0f8;
+      --text-secondary: #b8c8d8;
+      --text-muted: #7a8a9a;
+      --border-color: #1f2d45;
+      --shadow-sm: 0 2px 12px rgba(96, 165, 250, 0.15);
+      --shadow-md: 0 4px 20px rgba(96, 165, 250, 0.2);
+      --shadow-lg: 0 8px 36px rgba(96, 165, 250, 0.25);
+    }
+  }
+  
+  /* Base reset and typography */
+  main.bonkers * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  main.bonkers {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    padding: 2rem;
+    min-height: 100vh;
+  }
+  
+  /* Container */
+  main.bonkers > * {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Typography */
+  main.bonkers h1, main.bonkers h2, main.bonkers h3, main.bonkers h4 {
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  main.bonkers h1 { font-size: 3rem; margin-bottom: 1.5rem; }
+  main.bonkers h2 { font-size: 2.25rem; margin-top: 2rem; }
+  main.bonkers h3 { font-size: 1.75rem; margin-top: 1.5rem; }
+  main.bonkers h4 { font-size: 1.25rem; }
+  
+  main.bonkers p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+  }
+  
+  main.bonkers a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: var(--transition);
+    position: relative;
+  }
+  
+  main.bonkers a:hover {
+    color: var(--accent-secondary);
+  }
+  
+  main.bonkers a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gradient);
+    transition: var(--transition);
+  }
+  
+  main.bonkers a:hover::after {
+    width: 100%;
+  }
+  
+  /* Forms */
+  main.bonkers form {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin: 2rem 0;
+  }
+  
+  main.bonkers label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+  }
+  
+  main.bonkers input[type="text"],
+  main.bonkers input[type="email"],
+  main.bonkers input[type="password"],
+  main.bonkers input[type="number"],
+  main.bonkers input[type="tel"],
+  main.bonkers input[type="url"],
+  main.bonkers input[type="search"],
+  main.bonkers input[type="date"],
+  main.bonkers textarea,
+  main.bonkers select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: var(--transition);
+    margin-bottom: 1.5rem;
+    font-family: inherit;
+  }
+  
+  main.bonkers input:focus,
+  main.bonkers textarea:focus,
+  main.bonkers select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  main.bonkers textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  main.bonkers input[type="checkbox"],
+  main.bonkers input[type="radio"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    accent-color: var(--accent-primary);
+  }
+  
+  main.bonkers fieldset {
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  main.bonkers legend {
+    padding: 0 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  /* Buttons */
+  main.bonkers button,
+  main.bonkers input[type="submit"],
+  main.bonkers input[type="button"] {
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--accent-gradient);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    font-family: inherit;
+  }
+  
+  main.bonkers button:hover,
+  main.bonkers input[type="submit"]:hover,
+  main.bonkers input[type="button"]:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  main.bonkers button:active {
+    transform: translateY(0);
+  }
+  
+  /* Article cards */
+  main.bonkers article {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  main.bonkers article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent-gradient);
+  }
+  
+  main.bonkers article:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  main.bonkers article header {
+    margin-bottom: 1rem;
+  }
+  
+  main.bonkers article h1,
+  main.bonkers article h2,
+  main.bonkers article h3 {
+    margin-top: 0;
+  }
+  
+  main.bonkers article footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Card grid */
+  main.bonkers section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  /* Tables */
+  main.bonkers table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin: 2rem 0;
+  }
+  
+  main.bonkers th,
+  main.bonkers td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  main.bonkers th {
+    background: var(--bg-tertiary);
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  main.bonkers tr:last-child td {
+    border-bottom: none;
+  }
+  
+  main.bonkers tr:hover {
+    background: var(--bg-tertiary);
+  }
+  
+  /* Lists */
+  main.bonkers ul,
+  main.bonkers ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+  }
+  
+  main.bonkers li {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Code */
+  main.bonkers code {
+    background: rgba(96, 165, 250, 0.15);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #2563eb;
+    border: 1px solid rgba(96, 165, 250, 0.25);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    main.bonkers code {
+      background: rgba(96, 165, 250, 0.2);
+      color: #93c5fd;
+      border-color: rgba(96, 165, 250, 0.3);
+    }
+  }
+  
+  main.bonkers pre {
+    background: var(--bg-tertiary);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+  }
+  
+  main.bonkers pre code {
+    background: none;
+    padding: 0;
+    border: none;
+  }
+  
+  /* Blockquote */
+  main.bonkers blockquote {
+    border-left: 4px solid var(--accent-primary);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+  
+  /* HR */
+  main.bonkers hr {
+    border: none;
+    height: 2px;
+    background: var(--accent-gradient);
+    margin: 2rem 0;
+    border-radius: 2px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    main.bonkers {
+      padding: 1rem;
+    }
+    
+    main.bonkers h1 {
+      font-size: 2rem;
+    }
+    
+    main.bonkers h2 {
+      font-size: 1.75rem;
+    }
+    
+    main.bonkers section {
+      grid-template-columns: 1fr;
+    }
+  }
